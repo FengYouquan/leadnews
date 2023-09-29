@@ -1,4 +1,4 @@
-package com.youquan.utils.common;
+package com.youquan.app.gateway.utils;
 
 import io.jsonwebtoken.*;
 

@@ -8,6 +8,8 @@ package com.youquan.model.common.dto;
 
 import com.alibaba.fastjson2.JSON;
 import com.youquan.model.common.enums.AppHttpCodeEnum;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,14 +20,15 @@ import java.util.List;
  *
  * @param <T>
  */
+@ApiModel(description = "统一响应结果")
 public class ResponseResult<T> implements Serializable {
-
+    @ApiModelProperty("主机名")
     private String host;
-
+    @ApiModelProperty("响应状态码")
     private Integer code;
-
+    @ApiModelProperty("响应信息")
     private String errorMessage;
-
+    @ApiModelProperty("响应数据")
     private T data;
 
     public ResponseResult() {
