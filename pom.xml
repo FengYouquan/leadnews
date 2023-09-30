@@ -24,6 +24,7 @@
         <module>leadnews-service</module>
         <module>leadnews-test</module>
         <module>leadnews-feign-api</module>
+        <module>leadnews-bastic</module>
     </modules>
 
     <properties>
