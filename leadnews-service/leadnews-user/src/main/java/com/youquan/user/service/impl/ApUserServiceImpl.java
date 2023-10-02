@@ -36,6 +36,19 @@ public class ApUserServiceImpl implements ApUserService {
      */
     @Override
     public Map<String, Object> login(ApUserLoginDto apUserLoginDto) {
+        HashMap<String, Object> result = new HashMap<>();
+
+        // 游客登录
+        if (Objects.equals(apUserLoginDto.getPhone(), "")) {
+            result.put("token", AppJwtUtil.getToken(0L));
+            return result;
+        }
+
+        // 参数校验
+        if (!apUserLoginDto.getPhone().trim().matches("^1[3-9]\\\\d{9}$")) {
+            throw new CustomException(AppHttpCodeEnum.PARAM_INVALID);
+        }
+
         // 查询用户
         ApUser apUser = apUserMapper.selectOne(Wrappers.<ApUser>lambdaQuery().eq(ApUser::getPhone, apUserLoginDto.getPhone()));
         if (apUser == null) {
@@ -49,7 +62,6 @@ public class ApUserServiceImpl implements ApUserService {
         }
 
         // 生成JWT并封装结果
-        HashMap<String, Object> result = new HashMap<>();
         result.put("token", AppJwtUtil.getToken(apUser.getId().longValue()));
         ApUserLoginVo apUserLoginVo = new ApUserLoginVo();
         BeanUtils.copyProperties(apUser, apUserLoginVo);

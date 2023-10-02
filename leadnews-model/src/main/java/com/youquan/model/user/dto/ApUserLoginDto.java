@@ -4,8 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Fengyouquan
@@ -19,13 +18,12 @@ public class ApUserLoginDto {
      * 手机号
      */
     @ApiModelProperty(value = "手机号")
-    @Pattern(regexp = "^1[3-9][0-9]{9}$", message = "手机号格式有误")
-    @NotBlank(message = "手机号不能为空")
+    @NotNull(message = "手机号不能为空")
     private String phone;
     /**
      * 密码
      */
     @ApiModelProperty("密码")
-    @NotBlank(message = "密码不能为空")
+    @NotNull(message = "密码不能为空")
     private String password;
 }
