@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.youquan.common.redis.CacheService,\
+  com.youquan.common.tess4j.Tess4jClient

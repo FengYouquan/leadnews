@@ -10,3 +10,13 @@ spring:
       config:
         server-addr: 124.70.161.62:8848
         file-extension: yml
+baidu:
+  censor:
+    text-censor-url: https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined
+    image-censor-url: https://aip.baidubce.com/rest/2.0/solution/v1/img_censor/v2/user_defined
+    token-url: https://aip.baidubce.com/oauth/2.0/token
+    client-id: ErF4Gzle1geKyjA8CjECqUzW
+    client-secret: tRr6KQYVaoU4SeYy4Wo6OnXUNUUXQpzt
+tess4j:
+  data-path: D:\Documents\Develop\code\case-leadnews\heima-leadnews\heima-leadnews-test\tess4j-demo\src\main\resources\tessdata
+  language: chi_sim

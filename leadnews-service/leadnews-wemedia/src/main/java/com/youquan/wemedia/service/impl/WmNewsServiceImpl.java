@@ -21,6 +21,7 @@ import com.youquan.utils.thread.WmThreadLocalUtils;
 import com.youquan.wemedia.mapper.WmMaterialMapper;
 import com.youquan.wemedia.mapper.WmNewsMapper;
 import com.youquan.wemedia.mapper.WmNewsMaterialMapper;
+import com.youquan.wemedia.service.WmNewsAutoScanService;
 import com.youquan.wemedia.service.WmNewsService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +45,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     private final WmNewsMaterialMapper wmNewsMaterialMapper;
     private final WmMaterialMapper wmMaterialMapper;
     private final WmNewsMapper wmNewsMapper;
+    private final WmNewsAutoScanService wmNewsAutoScanService;
 
     /**
      * 查询文章列表
@@ -103,6 +105,9 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         if (wmNewsDto == null || wmNewsDto.getContent().isBlank()) {
             throw new CustomException(AppHttpCodeEnum.PARAM_REQUIRE);
         }
+        if (wmNewsDto.getPublishTime() == null) {
+            wmNewsDto.setPublishTime(new Date());
+        }
 
         // 保存或修改文章
         WmNews wmNews = new WmNews();
@@ -134,6 +139,9 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
 
         // 保存文章封面和图片素材的关联关系
         this.saveRelationshipOfCoverAndMaterial(wmNewsDto.getImages(), wmNews, imageList);
+
+        // 审核文章内容 V1.0
+        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
     }
 
     private void saveRelationshipOfCoverAndMaterial(List<String> coverImageList, WmNews wmNews, List<String> imageList) {

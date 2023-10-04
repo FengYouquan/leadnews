@@ -1,6 +1,7 @@
 package com.youquan.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.youquan.model.article.dto.ArticleDto;
 import com.youquan.model.article.dto.ArticleHomeDto;
 import com.youquan.model.article.pojo.ApArticle;
 
@@ -20,4 +21,12 @@ public interface ApArticleService extends IService<ApArticle> {
      * @return List <ApArticle>
      */
     List<ApArticle> load(ArticleHomeDto articleHomeDto, Short loadType);
+
+    /**
+     * 保存或修改文章信息
+     *
+     * @param articleDto 文章参数
+     * @return ResponseResult
+     */
+    Long saveOrUpdateArticle(ArticleDto articleDto);
 }

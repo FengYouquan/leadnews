@@ -45,7 +45,7 @@ public class ApUserServiceImpl implements ApUserService {
         }
 
         // 参数校验
-        if (!apUserLoginDto.getPhone().trim().matches("^1[3-9]\\\\d{9}$")) {
+        if (!apUserLoginDto.getPhone().trim().matches("^1[3-9]\\d{9}$")) {
             throw new CustomException(AppHttpCodeEnum.PARAM_INVALID);
         }
 
