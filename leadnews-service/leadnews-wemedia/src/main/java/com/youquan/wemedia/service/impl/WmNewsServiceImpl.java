@@ -23,6 +23,7 @@ import com.youquan.wemedia.mapper.WmNewsMapper;
 import com.youquan.wemedia.mapper.WmNewsMaterialMapper;
 import com.youquan.wemedia.service.WmNewsAutoScanService;
 import com.youquan.wemedia.service.WmNewsService;
+import com.youquan.wemedia.service.WmNewsTaskService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +47,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     private final WmMaterialMapper wmMaterialMapper;
     private final WmNewsMapper wmNewsMapper;
     private final WmNewsAutoScanService wmNewsAutoScanService;
+    private final WmNewsTaskService wmNewsTaskService;
 
     /**
      * 查询文章列表
@@ -141,7 +143,9 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         this.saveRelationshipOfCoverAndMaterial(wmNewsDto.getImages(), wmNews, imageList);
 
         // 审核文章内容 V1.0
-        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
+        // wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
+        // 异步完成文章审核 V2.0
+        wmNewsTaskService.addNewsToTask(wmNews.getId(), wmNews.getPublishTime());
     }
 
     private void saveRelationshipOfCoverAndMaterial(List<String> coverImageList, WmNews wmNews, List<String> imageList) {
